@@ -1,0 +1,108 @@
+package mineSweeper;
+
+import java.util.Arrays;
+import java.util.Random;
+import java.util.Scanner;
+
+
+public class Main {
+
+
+	public static void main(String[] args) {
+		
+		PrintMineSweeper printTitle = new PrintMineSweeper();
+		GameBoard gameBoard = new GameBoard();
+		CheckBombBoxes checkBombs = new CheckBombBoxes();
+		UserInput userInput = new UserInput();
+		AddBombs addBombs = new AddBombs();
+		
+		System.out.println("Welcome to : ");
+		printTitle.printMineSweeper();
+		
+		System.out.println();
+		
+	    
+		
+		// Variables for rows & columns of grid
+		// count (for loop)
+		// Number of bombs on bombs
+		
+		//TODO: remove count when loops setup correctly
+        int rows = 10;
+        int columns = 10;
+        int count = 0;
+        int bombs = 1;
+        
+        
+        // Create 2D array filled with '?'
+        char[][] grid = new char[rows][columns];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                grid[i][j] = '?';
+            }
+        }
+        
+        
+        // Randomly adds bombs to grid (2d array)
+        // Bombs equal B
+        addBombs.addBombsToGrid(bombs, rows, columns, grid);
+        
+        
+        // display grid for start of game       
+        gameBoard.printGrid(grid);
+        
+        
+        //continue the loop until user hits 10
+        //TODO: change this to stop looping when all boxes without bombs are clear
+        while(true) {
+        
+        	
+        //User input store row and column for selection in 2d array
+        System.out.println();
+        int[] rowCol = new int[2];
+        UserInput.getUserInput(rowCol);
+        int row = rowCol[0];
+        int col = rowCol[1];
+        
+        
+        // check if user selects B on 2d array grid
+        // break out of game and print boom
+        // if else box has zero -> box has already been cleared
+        
+        if(grid[row][col] == 'B') {
+        	System.out.println("boom!");
+        	break;
+        } else if (grid[row][col] == '0') {
+        	System.out.println("This box is already clear");
+        	continue;
+        } else if(countElement(grid[rows][columns], '?') == bombs) {
+        	System.out.println("You win");
+        	break;
+        }
+        
+        
+        //updates the elements in the grid with the number of adjacent bombs
+        //if 0 continue printing until not 0
+        checkBombs.checkBoxes(grid, row, col);
+
+        // Print grid with user selection and bomb boxes
+        gameBoard.printGrid(grid);
+    
+    }
+        
+        
+	}
+	public static int countElement(char[][] arr, int element) {
+	    int count = 0;
+	    for (char[] row : arr) {
+	        for (char value : row) {
+	            if (value == element) {
+	                count++;
+	            }
+	        }
+	    }
+	    return count;
+	}
+
+}
+

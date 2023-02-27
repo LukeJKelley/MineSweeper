@@ -1,0 +1,30 @@
+package mineSweeper;
+
+public class CheckBombBoxes {
+
+	public static void checkBoxes(char[][] grid, int row, int col) {
+	    if (grid[row][col] == 'B') {
+	        return;
+	    }
+	    
+	    int numBoxNear = 0;
+	    for (int i = row - 1; i <= row + 1; i++) {
+	        for (int j = col - 1; j <= col + 1; j++) {
+	            if (i >= 0 && i < grid.length && j >= 0 && j < grid[0].length && grid[i][j] == 'B') {
+	                numBoxNear++;
+	            }
+	        }
+	    }
+	    grid[row][col] = (char) ('0' + numBoxNear);
+	    if (numBoxNear == 0) {
+	        for (int i = row - 1; i <= row + 1; i++) {
+	            for (int j = col - 1; j <= col + 1; j++) {
+	                if (i >= 0 && i < grid.length && j >= 0 && j < grid[0].length && grid[i][j] == '?') {
+	                    checkBoxes(grid, i, j);
+	                }
+	            }
+	        }
+	    }
+	}
+	
+}

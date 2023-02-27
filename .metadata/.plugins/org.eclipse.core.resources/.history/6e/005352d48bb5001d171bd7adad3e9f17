@@ -1,0 +1,17 @@
+package mineSweeper;
+
+import java.util.Random;
+
+public class AddBombs {
+	
+	public static void  addBombs(int bombs, int rows, int columns, int[][] grid) {
+		Random rand = new Random();
+        for (int i = 0; i < bombs; i++) {
+            int bombRow = rand.nextInt(rows);
+            int bombCol = rand.nextInt(columns);
+            grid[bombRow][bombCol] = 'B';
+            
+        }
+	}
+
+}

@@ -1,0 +1,14 @@
+package mineSweeper;
+
+import java.util.Scanner;
+
+public class UserInput {
+	
+public static void getUserInput(int row, int col) {
+ Scanner scanner = new Scanner(System.in);
+ System.out.print("Enter row number: ");
+ row = scanner.nextInt();
+ System.out.print("Enter column number: ");
+ col = scanner.nextInt();
+	}
+}
